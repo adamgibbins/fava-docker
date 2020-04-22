@@ -1,9 +1,9 @@
-FROM python:3.7.6-alpine3.9 as build_env
+FROM python:3.8.2-alpine3.11 as build_env
 
-ENV FINGERPRINT "sha256:32:12:90:9a:70:64:82:1c:5b:52:cc:c3:0a:d0:79:db:e1:a8:62:1b:9a:9a:4c:f4:72:40:1c:a7:3a:d3:0a:8c"
+ENV FINGERPRINT "sha256:5e:7e:34:26:f0:db:84:8f:53:5d:3e:a5:63:b2:fd:a0:88:3f:9d:1c:53:72:67:83:1c:a3:7f:34:d1:29:d6:86"
 ENV BUILDDEPS "libxml2-dev libxslt-dev gcc musl-dev mercurial git npm make g++"
 # Short python version.
-ENV PV "3.7"
+ENV PV "3.8"
 
 WORKDIR /root
 RUN apk add --no-cache ${BUILDDEPS}
@@ -31,8 +31,8 @@ RUN find /usr/local/lib/python${PV} -name __pycache__ -exec rm -rf -v {} +
 RUN find /usr/local/lib/python${PV} -type f -name '*.exe' -delete
 
 
-FROM python:3.7.6-alpine3.9
-ENV PV "3.7"
+FROM python:3.8.2-alpine3.11
+ENV PV "3.8"
 ENV BEANCOUNT_INPUT_FILE ""
 ENV FAVA_OPTIONS "-H 0.0.0.0"
 COPY --from=build_env /usr/local/lib/python${PV}/site-packages /usr/local/lib/python${PV}/site-packages
