@@ -1,4 +1,4 @@
-FROM python:3.8.3-alpine3.11 as build_env
+FROM python:3.8.4-alpine3.11 as build_env
 
 ENV FINGERPRINT "sha256:5e:7e:34:26:f0:db:84:8f:53:5d:3e:a5:63:b2:fd:a0:88:3f:9d:1c:53:72:67:83:1c:a3:7f:34:d1:29:d6:86"
 ENV BUILDDEPS "libxml2-dev libxslt-dev gcc musl-dev mercurial git npm make g++"
@@ -31,7 +31,7 @@ RUN find /usr/local/lib/python${PV} -name __pycache__ -exec rm -rf -v {} +
 RUN find /usr/local/lib/python${PV} -type f -name '*.exe' -delete
 
 
-FROM python:3.8.3-alpine3.11
+FROM python:3.8.4-alpine3.11
 ENV PV "3.8"
 ENV BEANCOUNT_INPUT_FILE ""
 ENV FAVA_OPTIONS "-H 0.0.0.0"
