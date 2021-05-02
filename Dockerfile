@@ -1,15 +1,14 @@
 FROM python:3.8.7-alpine3.11 as build_env
 
-ENV FINGERPRINT "sha256:5e:7e:34:26:f0:db:84:8f:53:5d:3e:a5:63:b2:fd:a0:88:3f:9d:1c:53:72:67:83:1c:a3:7f:34:d1:29:d6:86"
-ENV BUILDDEPS "libxml2-dev libxslt-dev gcc musl-dev mercurial git npm make g++"
+ENV BUILDDEPS "libxml2-dev libxslt-dev gcc musl-dev git npm make g++"
 # Short python version.
 ENV PV "3.8"
 
 WORKDIR /root
 RUN apk add --no-cache ${BUILDDEPS}
 
-RUN hg clone --config hostsecurity.bitbucket.org:fingerprints=${FINGERPRINT} https://bitbucket.org/blais/beancount
-RUN echo "Beancount version:" && cd beancount && hg log -l1
+RUN git clone https://github.com/beancount/beancount.git
+RUN echo "Beancount version:" && cd beancount && git log -1
 
 RUN git clone https://github.com/beancount/fava.git
 RUN echo "Fava version:" && cd fava && git log -1
